@@ -25,6 +25,7 @@ passport.use(new LocalStrategy({
     } else {
       user.verifyPassword(password).then(verified => {
         if (verified) {
+          console.log('done verified');
           done(null, user);
         } else {
           done(null, false);
@@ -33,6 +34,7 @@ passport.use(new LocalStrategy({
     }
   });
 }));
+
 
 // TODO : fix facebook login
 if (process.env.NODE_ENV === 'production') {
@@ -114,6 +116,19 @@ routes.get('/logout', (req, res) => {
     res.redirect('/login.html');
   });
 });
+
+// auto-login to speed up development
+if (process.env.NODE_ENV !== 'production') {
+  routes.get('/autologin', (req, res) => {
+    req.body.email = 'steven@lol.com';
+    req.body.password = '123456';
+
+    passport.authenticate('local')(req, res, function () {
+      console.log('in Next', req.body);
+      res.redirect('/');
+    });
+  });
+}
 
 function isAuth(req, res, next) {
   if (req.isAuthenticated && req.isAuthenticated()) {

@@ -59,7 +59,13 @@ class Task extends React.Component {
 
   componentDidMount() {
     const ctx = this.refs.canvas.getContext('2d');
-    var fill = '#66ff66';
+    var colors = {
+      recent: '5ED848',
+      urgent: 'E39E2E',
+      overdue: 'F0401D'
+    };
+
+    var fill = colors.recent;
     this.roundRect(ctx, 0, 0, 108, 108, 6, fill);
     const bottomY = 72;
     ctx.clearRect(0, 0, 108, bottomY);
@@ -67,14 +73,14 @@ class Task extends React.Component {
 
   render() {
 
-    let style2 = Object.assign({}, style);
-    if (this.props.color === 0) {
-      style2.border = '2px solid red';
-    } else if (this.props.color === 1) {
-      style2.border = '2px solid yellow';
-    } else {
-      style2.border = '2px solid green';
-    }
+    // let style2 = Object.assign({}, style);
+    // if (this.props.color === 0) {
+    //   style2.border = '2px solid red';
+    // } else if (this.props.color === 1) {
+    //   style2.border = '2px solid yellow';
+    // } else {
+    //   style2.border = '2px solid green';
+    // }
 
     return (
       <div>
