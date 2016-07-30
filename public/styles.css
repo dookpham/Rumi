@@ -1,5 +1,5 @@
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto'; sans-serif;
 }
 
 .innerTaskText {
@@ -54,4 +54,45 @@
 .addTask {
   margin: 5px;
   width: 2.2em;
+}
+
+.magnifyingGlass {
+  position: relative;
+  margin: auto;
+  width: 300px;
+  left: 110px;
+  top: 20px;
+}
+
+.magHandle {
+  transition: all 0.5s ease;
+  background-color: #FA0;
+  width: 8px;
+  height: 20px;
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 70px;
+  top: 70px;
+}
+
+.magOuterRing {
+  transition: all 0.5s ease;
+  background-color: #FA0;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.magInnerRing {
+  transition: all 0.5s ease;
+  background-color: #FFF;
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+  position: absolute;
+  left: 4px;
+  top: 4px;
 }

@@ -16,6 +16,7 @@ import CompletedList from './components/CompletedList.jsx';
 import OverdueTasks from './components/OverdueTasks.jsx';
 import UrgentTasks from './components/UrgentTasks.jsx';
 import RecentTasks from './components/RecentTasks.jsx';
+import MagnifyingGlass from './components/MagnifyingGlass.jsx';
 import AddTask from './AddTask.jsx';
 
 // redux stuff
@@ -31,12 +32,17 @@ const middleware = [thunk, logger()];
 
 let store = createStore(appReducer, applyMiddleware(...middleware));
 
+let style = {
+  top: '100px',
+  position: 'relative'
+};
+
 const App = () => (
   <MuiThemeProvider className="container">
     <div>
       <Navbar />
-
-      <div className="row">
+      <MagnifyingGlass />
+      <div className="row" style={style}>
         <div className="col-xs-2 col-xs-offset-5">
           <AddTask/>
         </div>
@@ -49,7 +55,7 @@ const App = () => (
         </div>
       </div>
 
-      <CompletedList />
+      <CompletedList style={style}/>
     </div>
   </MuiThemeProvider>
 );
