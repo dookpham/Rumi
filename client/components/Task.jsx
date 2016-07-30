@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { completeTaskToServer, updateDueDateToServer } from '../actions/taskActions';
 import { claimTaskToServer } from '../actions/claimActions';
-
+import { TimeRemaining } from './TimeRemaining.jsx';
 
 // Material things
 import CircularProgress from 'material-ui/CircularProgress';
@@ -104,7 +104,7 @@ class Task extends React.Component {
           <div className="innerTaskText">
             {this.props.name}
             <br />
-            {this.props.claimedBy}
+            <TimeRemaining preciseDueBy={this.props.preciseDueBy}/>
           </div>
         </div>
         <div>

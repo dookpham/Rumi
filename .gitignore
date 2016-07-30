@@ -3,3 +3,4 @@ dist/bundle.js
 dist/bundle.js.map
 secret.js
 env.sh
+npm-debug.log

@@ -17,6 +17,7 @@ let RecentTasks = ({recentTasks}) => (
             duebyNumber={recentTask.dueBy}
             interval={recentTask.interval}
             dueBy={moment().endOf(recentTask.dueBy).fromNow()}
+            preciseDueBy={recentTask.dueBy}
             overdue={2}
             />
         </div>
