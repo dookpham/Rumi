@@ -11,13 +11,19 @@ import MenuItem from 'material-ui/MenuItem';
 import Popover from 'material-ui/Popover';
 import RaisedButton from 'material-ui/RaisedButton';
 
-let style = {
+const style = {
   height: 50,
   width: 50,
   margin: 10,
   textAlign: 'center',
   display: 'inline-block',
   overflow: 'hidden'
+};
+
+const colors = {
+  recent: '#5ED848',
+  urgent: '#E39E2E',
+  overdue: '#F0401D',
 };
 
 class Task extends React.Component {
@@ -35,11 +41,7 @@ class Task extends React.Component {
   }
 
   componentDidMount() {
-    const colors = {
-      recent: '#5ED848',
-      urgent: '#E39E2E',
-      overdue: '#F0401D',
-    }
+    
   }
 
   // helpers for the model
@@ -88,19 +90,24 @@ class Task extends React.Component {
     this.props.dispatch(updateDueDateToServer( {taskId, isodate} ));
   }
 
-    render() {
-      let dueMills = new Date(this.props.duebyNumber).getTime();
-      let a = dueMills - Date.now();
-      let percentage = a / this.props.interval;
-      let displayPercentage = percentage <= 0 ? 1 : 1-percentage;
+  render() {
+    let dueMills = new Date(this.props.duebyNumber).getTime();
+    let a = dueMills - Date.now();
+    let percentage = a / this.props.interval;
+    let displayPercentage = percentage <= 0 ? 1 : 1 - percentage;
+    
+    let color = colors[this.props.status];
+
     return (
       <div>
         <div className="outerTaskBox" onTouchTap={this.handleTouchTap.bind(this)}>
           <CircularProgress
+            color={color}
             mode={'determinate'}
             value={displayPercentage * 100}
             size={2}
             innerStyle="circleProgress" />
+
           <div className="innerTaskText">
             {this.props.name}
             <br />

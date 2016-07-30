@@ -16,6 +16,7 @@ const Completed = ({name, due, user}) => (
       avatar="http://lorempixel.com/100/100/nature/"
       style={style}
     />
+    <p></p>
   </Card>
 );
 

@@ -16,8 +16,9 @@ let UrgentTasks = ({urgentTasks}) => (
             duebyNumber={urgentTask.dueBy}
             interval={urgentTask.interval}
             dueBy={moment().endOf(urgentTask.dueBy).fromNow()}
-            color={1}
-            />
+            key={urgentTask.id}
+            status="urgent"
+          />
         </div>
       );
     })}

@@ -3,9 +3,15 @@ import { connect } from 'react-redux';
 import Completed from './Completed.jsx';
 import moment from 'moment';
 
+let completedStyle = {
+  top: '240px',
+  position: 'relative'
+};
+
 let CompletedList = ({completedList}) => (
-  <ul>
+  <ul style={completedStyle}>
     {completedList.map(completed => {
+      // console.log(completed.user, completed.name);
       return (
       <Completed
         name={completed.name}

@@ -5,7 +5,6 @@ import moment from 'moment';
 import { urgency, searchFilter } from '../filterTasksHelpers';
 
 let RecentTasks = ({recentTasks}) => (
-
   <ul>
     {recentTasks.map(recentTask => {
       return (
@@ -18,8 +17,9 @@ let RecentTasks = ({recentTasks}) => (
             interval={recentTask.interval}
             dueBy={moment().endOf(recentTask.dueBy).fromNow()}
             preciseDueBy={recentTask.dueBy}
-            overdue={2}
-            />
+            key={recentTask.id}
+            status="recent"
+          />
         </div>
       );
     })}

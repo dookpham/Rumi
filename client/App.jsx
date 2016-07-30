@@ -54,6 +54,7 @@ var App = (props) => (
           <RecentTasks />
         </div>
       </div>
+      <CompletedList />
 
     </div>
   </MuiThemeProvider>
