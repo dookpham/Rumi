@@ -13,9 +13,10 @@ import moment from 'moment';
 // Components we have built
 import Navbar from './Navbar.jsx';
 import CompletedList from './components/CompletedList.jsx';
-import OverdueTasks from './components/OverdueTasks.jsx';
-import UrgentTasks from './components/UrgentTasks.jsx';
-import RecentTasks from './components/RecentTasks.jsx';
+// import OverdueTasks from './components/OverdueTasks.jsx';
+// import UrgentTasks from './components/UrgentTasks.jsx';
+// import RecentTasks from './components/RecentTasks.jsx';
+import Tasks from './components/Tasks.jsx';
 import MagnifyingGlass from './components/MagnifyingGlass.jsx';
 import AddTask from './AddTask.jsx';
 
@@ -47,11 +48,7 @@ var App = (props) => (
           <AddTask/>
         </div>
         <div className="col-xs-12">
-          <OverdueTasks />
-
-          <UrgentTasks />
-
-          <RecentTasks />
+          <Tasks />
         </div>
       </div>
       <CompletedList />

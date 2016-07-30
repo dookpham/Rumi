@@ -18,7 +18,7 @@ let RecentTasks = ({recentTasks}) => (
             dueBy={moment().endOf(recentTask.dueBy).fromNow()}
             preciseDueBy={recentTask.dueBy}
             key={recentTask.id}
-            status="recent"
+            status={recentTask.status}
             lastCompletedBy={recentTask.lastCompletedBy}
           />
         </div>
@@ -36,6 +36,11 @@ RecentTasks.propTypes = {
 
 const mapStateToProps = function(state) {
   var tasks = state.tasks.slice(0);
+  //sort tasks
+  tasks.sort((a, b) => {
+    return new Date(a.dueBy) > new Date(b.dueBy);
+  });
+
   if (!state.search.closed && state.search.string !== '') {  //search is open so filter
     tasks = searchFilter(tasks, state.search.string);
   }
@@ -53,13 +58,25 @@ const mapStateToProps = function(state) {
   });
 
   //get lastCompleted
+  let now = Date.now();
   tasks.forEach(task => {
     if (comp[task.name]) {
       task.lastCompletedBy = comp[task.name].user;
     }
+
+    task.status = 'recent';
+    let timeLeft = Date.parse(task.dueBy) - now;
+    if (timeLeft >= task.interval / 2) {
+      //recent
+    } else if (timeLeft >= 0 && timeLeft < task.interval / 2) {
+      task.status = 'urgent';
+    } else {
+      task.status = 'overdue';
+    }
+
   });
   return {
-    recentTasks: urgency(tasks, 'recent'),
+    recentTasks: tasks,
     completedList: state.completedList,
     search: state.search
   };
