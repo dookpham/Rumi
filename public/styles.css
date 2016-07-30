@@ -65,34 +65,57 @@
 }
 
 .magHandle {
-  transition: all 0.5s ease;
+  transition: all 0.25s ease;
   background-color: #FA0;
   width: 8px;
-  height: 20px;
   position: absolute;
   transform: rotate(-45deg);
-  left: 70px;
-  top: 70px;
+  left: 60px;
+  top: 60px;
+}
+
+.magHandleClosed {
+  height: 20px;
+}
+
+.magHandleStretch {
+  height: 0px;
 }
 
 .magOuterRing {
-  transition: all 0.5s ease;
+  transition: all 0.25s ease;
   background-color: #FA0;
-  width: 80px;
-  height: 80px;
+  height: 68px;
   border-radius: 40px;
   position: absolute;
-  left: 0px;
   top: 0px;
 }
 
+.magOuterClosed {
+  width: 68px;
+  left: 0px;
+}
+
+.magOuterStretch {
+  width: 280px;
+  left: -100px;
+}
+
 .magInnerRing {
-  transition: all 0.5s ease;
+  transition: all 0.25s ease;
   background-color: #FFF;
-  width: 72px;
-  height: 72px;
+  height: 60px;
   border-radius: 36px;
   position: absolute;
-  left: 4px;
   top: 4px;
+}
+
+.magInnerClosed {
+  width: 60px;
+  left: 4px;
+}
+
+.magInnerStretch {
+  width: 272px;
+  left: -96px;
 }

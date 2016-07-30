@@ -33,32 +33,56 @@ const middleware = [thunk, logger()];
 let store = createStore(appReducer, applyMiddleware(...middleware));
 
 let style = {
-  top: '100px',
+  top: '140px',
   position: 'relative'
 };
 
-const App = () => (
-  <MuiThemeProvider className="container">
-    <div>
-      <Navbar />
-      <MagnifyingGlass />
-      <div className="row" style={style}>
-        <div className="col-xs-2 col-xs-offset-5">
-          <AddTask/>
+const bodyClickHandler = (e) => {
+  console.log('clicked body');
+};
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      closed: true,
+      bodyClickHandler: this.bodyClickHandler.bind(this)
+    };
+  }
+
+  bodyClickHandler() {
+    console.log('clicked body');
+    if (!this.state.closed) {
+      console.log('close input');
+      this.setState({closed: true});
+    }
+  }
+// const App = () => (
+  render() {
+    return (
+      <MuiThemeProvider className="container">
+        <div onClick={this.state.bodyClickHandler} closed={this.state.closed}>
+          <Navbar />
+          <MagnifyingGlass bodyClick={bodyClickHandler}/>
+          <div className="row" style={style}>
+            <div className="col-xs-2 col-xs-offset-5">
+              <AddTask/>
+            </div>
+            <div className="col-xs-12">
+              <OverdueTasks />
+
+              <UrgentTasks />
+
+              <RecentTasks />
+            </div>
+            <CompletedList style={style}/>
+          </div>
+
         </div>
-        <div className="col-xs-12">
-          <OverdueTasks />
-
-          <UrgentTasks />
-
-          <RecentTasks />
-        </div>
-      </div>
-
-      <CompletedList style={style}/>
-    </div>
-  </MuiThemeProvider>
-);
+      </MuiThemeProvider>
+    );
+  }
+};
 
 store.dispatch(getAllCompleted());
 store.dispatch(getAllTasks());
