@@ -1,5 +1,4 @@
 import socket from '../socketio.js';
-import urgency from '../urgency.service';
 import { addCompleted } from './completedActions';
 
 let nextTaskId = 0;  //when we set initial state, we need to update this

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Task from './Task.jsx';
 import moment from 'moment';
-import urgency from '../urgency.service';
+import { urgency, searchFilter } from '../filterTasksHelpers';
 
 let OverdueTasks = ({overdueTasks}) => (
   <ul>
@@ -30,8 +30,12 @@ OverdueTasks.propTypes = {
 };
 
 const mapStateToProps = function(state) {
+  var tasks = state.tasks;
+  if (!state.search.closed) {  //search is open so filter
+    tasks = searchFilter(tasks, state.search.string);
+  }
   return {
-    overdueTasks: urgency(state.tasks, 'overdue')
+    overdueTasks: urgency(tasks, 'overdue')
   };
 };
 

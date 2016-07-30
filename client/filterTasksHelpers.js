@@ -11,7 +11,7 @@
  * @param  {object[]} allTasks      An array of all tasks
  * @return {PrioritizedTasks}       An object grouping tasks by priority
  */
-const urgency = function(allTasks, priority) {
+export const urgency = (allTasks, priority) => {
   let tasks = {
     recent: (tasks) => {
       let now = Date.now();
@@ -49,4 +49,10 @@ const urgency = function(allTasks, priority) {
   } 
 };
 
-export default urgency;
+export const searchFilter = (tasks, string) => {
+  return tasks.filter(t => {
+    if (t.name.search(string) !== -1) { return t; }
+  });
+};
+
+// export default urgency;

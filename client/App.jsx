@@ -24,7 +24,8 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { getAllCompleted } from './actions/completedActions';
 import { getAllTasks } from './actions/taskActions';
-import { Provider } from 'react-redux';
+import { searchClose } from './actions/searchActions';
+import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import appReducer from './reducers/index';
 
@@ -37,52 +38,38 @@ let style = {
   position: 'relative'
 };
 
-const bodyClickHandler = (e) => {
-  console.log('clicked body');
-};
-
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      closed: true,
-      bodyClickHandler: this.bodyClickHandler.bind(this)
-    };
-  }
-
-  bodyClickHandler() {
-    console.log('clicked body');
-    if (!this.state.closed) {
-      console.log('close input');
-      this.setState({closed: true});
-    }
-  }
-// const App = () => (
-  render() {
-    return (
-      <MuiThemeProvider className="container">
-        <div onClick={this.state.bodyClickHandler} closed={this.state.closed}>
-          <Navbar />
-          <MagnifyingGlass bodyClick={bodyClickHandler}/>
-          <div className="row" style={style}>
-            <div className="col-xs-2 col-xs-offset-5">
-              <AddTask/>
-            </div>
-            <div className="col-xs-12">
-              <OverdueTasks />
-
-              <UrgentTasks />
-
-              <RecentTasks />
-            </div>
-            <CompletedList style={style}/>
-          </div>
-
+var App = (props) => (
+  <MuiThemeProvider className="container">
+    <div>
+      <Navbar />
+      <MagnifyingGlass />
+      <div className="row" style={style}>
+        <div className="col-xs-2 col-xs-offset-5">
+          <AddTask/>
         </div>
-      </MuiThemeProvider>
-    );
-  }
-};
+        <div className="col-xs-12">
+          <OverdueTasks />
+
+          <UrgentTasks />
+
+          <RecentTasks />
+        </div>
+        <CompletedList style={style}/>
+      </div>
+
+    </div>
+  </MuiThemeProvider>
+);
+
+// const mapStateToProps = function(state) {
+//   return {
+//     search: state.search
+//   };
+// };
+
+// App = connect(
+//   mapStateToProps
+// )(App);
 
 store.dispatch(getAllCompleted());
 store.dispatch(getAllTasks());
