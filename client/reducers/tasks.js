@@ -9,11 +9,17 @@ const task = (state, action) => {
       updatedAt: action.updatedAt
     });
   case 'CLAIM_TASK_TO_USER':
-    let some = Object.assign({}, state, {
+    let claimed = Object.assign({}, state, {
       claimedBy: action.name,
       updatedAt: action.updatedAt,
     });
-    return some;
+    return claimed;
+  case 'UPDATE_DUE_DATE':
+    console.log('hit on update');
+    let update = Object.assign({}, state, {
+      dueBy: action.dueBy,
+    });
+    return update;
   default:
     return state;
   }
@@ -37,6 +43,14 @@ const tasks = (state = [], action) => {
   case 'ADD_ALL_TASKS':
     return action.tasks;
   case 'CLAIM_TASK_TO_USER':
+    return state.map(t => {
+      if (t.id === action.taskId) {
+        return task(t, action);
+      } else {
+        return t;
+      }
+    });
+  case 'UPDATE_DUE_DATE':
     return state.map(t => {
       if (t.id === action.taskId) {
         return task(t, action);

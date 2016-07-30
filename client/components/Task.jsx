@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { completeTaskToServer } from '../actions/taskActions';
+import { completeTaskToServer, updateDueDateToServer } from '../actions/taskActions';
 import { claimTaskToServer } from '../actions/claimActions';
 
 
@@ -61,32 +61,32 @@ class Task extends React.Component {
   }
 
   addToDueDate(increase) {
-      console.log('adding an hour to due date')
-      console.log('initial', this.props.duebyNumber);
+    let originalDueDateMills = new Date(this.props.duebyNumber).getTime();
 
+    let overdue = originalDueDateMills < Date.now();
+
+    let newDate;
       // parse out whether to add a day or an hour
-      if (increase === 'hour') {
-        increase = 3600000;
-      } else if (increase = 'day') {
-        increase = 3600000 * 24;
-      }
-
-      let originalDueDateMills = new Date(this.props.duebyNumber).getTime();
-
-      // check whether the task is overdue
-      if (originalDueDateMills < Date.now()) {
-        // if overdue
-        console.log('overdue');
-        let newDate = Date.now() + increase;
-        console.log('a', newDate);
-      } else {
-        // otherwise still valid
-        console.log('still okay')
-        originalDueDateMills += increase;
-        let newDate = new Date(dueDate);
-        console.log('finally', newDate);
-      }
+    if (increase === 'hour') {
+      increase = 3600000;
+    } else if (increase = 'day') {
+      increase = 3600000 * 24;
     }
+    // check whether the task is overdue
+    if (overdue) {
+      // if overdue
+      newDate = Date.now() + increase;
+    } else {
+      // otherwise still valid
+      let incDueDate = originalDueDateMills + increase;
+      newDate = new Date(incDueDate);
+    }
+
+    let isodate = new Date(newDate).toISOString();
+
+    let taskId = this.props.id;
+    this.props.dispatch(updateDueDateToServer( {taskId, isodate} ));
+  }
 
     render() {
       let dueMills = new Date(this.props.duebyNumber).getTime();

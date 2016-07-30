@@ -41,7 +41,7 @@ const completeTask = ({id, dueBy, updatedAt}) => {
 export const completeTaskToServer = ({taskId}) => {
   var listenerOn = false;
   return dispatch => {
-    
+
     socket.emit('complete task', taskId);
 
     if (!listenerOn) {
@@ -59,6 +59,37 @@ export const completeTaskToServer = ({taskId}) => {
         let user = completedTask.user.name;
         let createdAt = completedTask.createdAt;
         dispatch(addCompleted({id, name, user, createdAt}));
+      });
+    }
+  };
+};
+
+const updateDueDate = ({id, dueBy}) => {
+  console.log('wawa', id, dueBy)
+  return {
+    type: 'UPDATE_DUE_DATE',
+      taskId: id,
+      dueBy: dueBy,
+  };
+};
+
+export const updateDueDateToServer = ({ taskId, isodate }) => {
+  var listenerOn = false;
+  return dispatch => {
+    console.log('from actions', taskId, isodate)
+    socket.emit('update task dueDate', {
+      taskId: taskId,
+      isodate: isodate,
+    });
+
+    if (!listenerOn) {
+      listenerOn = true;
+
+      socket.on('updated task', function(update) {
+        console.log('updated:', update);
+        let id = update.id;
+        let dueBy = update.dueBy;
+        dispatch(updateDueDate({id, dueBy}));
       });
     }
   };

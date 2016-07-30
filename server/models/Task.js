@@ -41,13 +41,19 @@ var Task = db.define('task', {
     },
     claimed: function(userId) {
       this.claimedBy = userId;
-        return this.save()
-        .then(() => User.findById(userId))
-        .then((user) => {
-          console.log('=====================>', user);
-          return user;
-        });
-      }
+      return this.save()
+      .then(() => User.findById(userId))
+      .then((user) => {
+        return user;
+      });
+    },
+    update: function(newDate) {
+      this.dueBy = newDate;
+      return this.save()
+      .then((athing) => {
+        return athing;
+      });
+    }
   }
 });
 

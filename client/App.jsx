@@ -53,7 +53,6 @@ var App = (props) => (
 
           <RecentTasks />
         </div>
-        <CompletedList style={style}/>
       </div>
 
     </div>

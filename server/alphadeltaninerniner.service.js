@@ -31,9 +31,8 @@ function decorate(app, session) {
     socket.on('archive task', archiveTask);
     socket.on('unarchive task', notYetImplemented.bind(null, 'unarchive task'));
     socket.on('complete task', completeTask(socket.request.session.passport.user));
-    // user info comes from here ^
     socket.on('claim task', claimTask(socket.request.session.passport.user));
-
+    socket.on('update task dueDate', updateDueDate(socket.request.session.passport.user));
 
     socket.on('get all tasks', getAllTasks(socket));
     socket.on('get completeds', getCompleteds(socket));
@@ -102,6 +101,19 @@ function decorate(app, session) {
       return Task.findById(id).then(task => task.claimed(userId))
           .then(completed => {
             io.emit('claimed task', completed);
+        });
+      };
+    };
+
+    updateDueDate
+
+  function updateDueDate() {
+    // figure out how to overwrite the due date here line 113
+    return inbound => {
+      return Task.findById(inbound.taskId).then(task =>
+        task.update(inbound.isodate))
+          .then(updated => {
+            io.emit('updated task', updated);
         });
       };
     };
