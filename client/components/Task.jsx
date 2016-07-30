@@ -69,6 +69,7 @@ class Task extends React.Component {
 
     let newDate;
       // parse out whether to add a day or an hour
+
     if (increase === 'hour') {
       increase = 3600000;
     } else if (increase = 'day') {
