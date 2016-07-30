@@ -31,6 +31,9 @@ function decorate(app, session) {
     socket.on('archive task', archiveTask);
     socket.on('unarchive task', notYetImplemented.bind(null, 'unarchive task'));
     socket.on('complete task', completeTask(socket.request.session.passport.user));
+    // user info comes from here ^
+    socket.on('claim task', claimTask(socket.request.session.passport.user));
+
 
     socket.on('get all tasks', getAllTasks(socket));
     socket.on('get completeds', getCompleteds(socket));
@@ -90,9 +93,18 @@ function decorate(app, session) {
         completed.reload({ include: [ User, Task ] }).then(completed => {
           io.emit('complete task', completed);
         });
-      });
+      }).catch((err) => console.log('line 97', err));
     };
   }
+
+  function claimTask(userId) {
+    return id => {
+      return Task.findById(id).then(task => task.claimed(userId))
+          .then(completed => {
+            io.emit('claimed task', completed);
+        });
+      };
+    };
 
   function getAllTasks(socket) {
     return () => {

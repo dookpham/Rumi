@@ -38,7 +38,16 @@ var Task = db.define('task', {
         .then(user => completed.setUser(user))
         .then(completed => completed.setTask(this));
       });
-    }
+    },
+    claimed: function(userId) {
+      this.claimedBy = userId;
+        return this.save()
+        .then(() => User.findById(userId))
+        .then((user) => {
+          console.log('=====================>', user);
+          return user;
+        });
+      }
   }
 });
 

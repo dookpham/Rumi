@@ -4,6 +4,8 @@ import FlatButton from 'material-ui/FlatButton';
 
 let style = {
   padding: '6px',
+  width: '720px',
+  margin: '0 auto',
 };
 
 const Completed = ({name, due, user}) => (

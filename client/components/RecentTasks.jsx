@@ -12,6 +12,8 @@ let RecentTasks = ({recentTasks}) => (
           <Task
             id={recentTask.id}
             name={recentTask.name}
+            claimedBy={recentTask.claimedBy}
+            duebyNumber={recentTask.dueBy}
             dueBy={moment().endOf(recentTask.dueBy).fromNow()}
             overdue={2}
             />
@@ -30,7 +32,8 @@ RecentTasks.propTypes = {
 
 const mapStateToProps = function(state) {
   return {
-    recentTasks: urgency(state.tasks, 'recent')
+    recentTasks: urgency(state.tasks, 'recent'),
+    completedList: state.completedList,
   };
 };
 

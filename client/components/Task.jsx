@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { completeTaskToServer } from '../actions/taskActions';
+import { claimTaskToServer } from '../actions/claimActions';
+
 
 // Material things
 import CircularProgress from 'material-ui/CircularProgress';
@@ -55,9 +57,7 @@ class Task extends React.Component {
   }
   claimTask() {
     let taskId = this.props.id;
-    console.log(taskId);
-    console.log(this.props);
-    // this.props.dispatch(claimTaskToServer( {taskId} ));
+    this.props.dispatch(claimTaskToServer( {taskId} ));
   }
 
   render() {
@@ -67,6 +67,8 @@ class Task extends React.Component {
           <CircularProgress mode={'determinate'} value={'72'} size={2} innerStyle="circleProgress" />
           <div className="innerTaskText">
             {this.props.name}
+            <br />
+            {this.props.claimedBy}
           </div>
         </div>
         <div>
