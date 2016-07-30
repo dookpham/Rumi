@@ -12,6 +12,9 @@ let OverdueTasks = ({overdueTasks}) => (
           <Task
             id={overdueTask.id}
             name={overdueTask.name}
+            claimedBy={overdueTask.claimedBy}
+            duebyNumber={overdueTask.dueBy}
+            interval={overdueTask.interval}
             dueBy={moment().endOf(overdueTask.dueBy).fromNow()}
             color={0}
             key={overdueTask.id}

@@ -15,6 +15,7 @@ let RecentTasks = ({recentTasks}) => (
             name={recentTask.name}
             claimedBy={recentTask.claimedBy}
             duebyNumber={recentTask.dueBy}
+            interval={recentTask.interval}
             dueBy={moment().endOf(recentTask.dueBy).fromNow()}
             overdue={2}
             />

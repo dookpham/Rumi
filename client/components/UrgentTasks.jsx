@@ -12,6 +12,9 @@ let UrgentTasks = ({urgentTasks}) => (
           <Task
             id={urgentTask.id}
             name={urgentTask.name}
+            claimedBy={urgentTask.claimedBy}
+            duebyNumber={urgentTask.dueBy}
+            interval={urgentTask.interval}
             dueBy={moment().endOf(urgentTask.dueBy).fromNow()}
             color={1}
             />

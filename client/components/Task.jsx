@@ -60,11 +60,47 @@ class Task extends React.Component {
     this.props.dispatch(claimTaskToServer( {taskId} ));
   }
 
-  render() {
+  addToDueDate(increase) {
+      console.log('adding an hour to due date')
+      console.log('initial', this.props.duebyNumber);
+
+      // parse out whether to add a day or an hour
+      if (increase === 'hour') {
+        increase = 3600000;
+      } else if (increase = 'day') {
+        increase = 3600000 * 24;
+      }
+
+      let originalDueDateMills = new Date(this.props.duebyNumber).getTime();
+
+      // check whether the task is overdue
+      if (originalDueDateMills < Date.now()) {
+        // if overdue
+        console.log('overdue');
+        let newDate = Date.now() + increase;
+        console.log('a', newDate);
+      } else {
+        // otherwise still valid
+        console.log('still okay')
+        originalDueDateMills += increase;
+        let newDate = new Date(dueDate);
+        console.log('finally', newDate);
+      }
+    }
+
+    render() {
+      let dueMills = new Date(this.props.duebyNumber).getTime();
+      let a = dueMills - Date.now();
+      let percentage = a / this.props.interval;
+      let displayPercentage = percentage <= 0 ? 1 : 1-percentage;
     return (
       <div>
         <div className="outerTaskBox" onTouchTap={this.handleTouchTap.bind(this)}>
-          <CircularProgress mode={'determinate'} value={'72'} size={2} innerStyle="circleProgress" />
+          <CircularProgress
+            mode={'determinate'}
+            value={displayPercentage * 100}
+            size={2}
+            innerStyle="circleProgress" />
           <div className="innerTaskText">
             {this.props.name}
             <br />
@@ -86,10 +122,11 @@ class Task extends React.Component {
               primaryText="Complete"
               onClick={this.completeTask.bind(this)} />
             <MenuItem
-              primaryText="edit time due"
-              onClick={() => {
-                console.log('edit due time of the task')
-              }} />
+              primaryText="extend by an hour"
+              onClick={this.addToDueDate.bind(this, 'hour')} />
+            <MenuItem
+              primaryText="extend by a day"
+              onClick={this.addToDueDate.bind(this, 'day')} />
           </Menu>
         </Popover>
       </div>
