@@ -98,7 +98,10 @@ class Task extends React.Component {
     let displayPercentage = percentage <= 0 ? 1 : 1 - percentage;
     
     let color = colors[this.props.status];
-
+    let lastCompletedBy;
+    if (this.props.lastCompletedBy) {
+      lastCompletedBy = 'Last Completed By: ' + this.props.lastCompletedBy;
+    }
     return (
       <div>
         <div className="outerTaskBox" onTouchTap={this.handleTouchTap.bind(this)}>
@@ -111,9 +114,9 @@ class Task extends React.Component {
 
           <div className="innerTaskText">
             {this.props.name}
-            <br />
-            <TimeRemaining preciseDueBy={this.props.preciseDueBy}/>
           </div>
+          <TimeRemaining preciseDueBy={this.props.preciseDueBy}/>
+          <p>{lastCompletedBy}</p>
         </div>
         <div>
         <Popover

@@ -19,6 +19,7 @@ let RecentTasks = ({recentTasks}) => (
             preciseDueBy={recentTask.dueBy}
             key={recentTask.id}
             status="recent"
+            lastCompletedBy={recentTask.lastCompletedBy}
           />
         </div>
       );
@@ -34,10 +35,33 @@ RecentTasks.propTypes = {
 };
 
 const mapStateToProps = function(state) {
-  var tasks = state.tasks;
+  var tasks = state.tasks.slice(0);
   if (!state.search.closed && state.search.string !== '') {  //search is open so filter
     tasks = searchFilter(tasks, state.search.string);
   }
+
+  //map completedList to taskNames... should be taskId but oh well =( ::::
+  let comp = {};
+  state.completedList.forEach(item => {
+    let t = new Date(item.createdAt);
+    // item.t = t;
+    if (!comp[item.name] || (comp[item.name].t < t)) {
+      comp[item.name] = {
+        t: t,
+        name: item.name,
+        user: item.user
+      }; 
+    // } else {
+      // comp[item.name] = item; 
+    }
+  });
+
+  //get lastCompleted
+  tasks.forEach(task => {
+    if (comp[task.name]) {
+      task.lastCompletedBy = comp[task.name].user;
+    }
+  });
   return {
     recentTasks: urgency(tasks, 'recent'),
     completedList: state.completedList,

@@ -33,7 +33,7 @@ UrgentTasks.propTypes = {
 };
 
 const mapStateToProps = function(state) {
-  var tasks = state.tasks;
+  var tasks = state.tasks.slice(0);
   if (!state.search.closed) {  //search is open so filter
     tasks = searchFilter(tasks, state.search.string);
   }
