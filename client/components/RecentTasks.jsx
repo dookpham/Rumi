@@ -33,11 +33,8 @@ RecentTasks.propTypes = {
 
 const mapStateToProps = function(state) {
   var tasks = state.tasks;
-  console.log('closed:', state.search.closed);
   if (!state.search.closed && state.search.string !== '') {  //search is open so filter
-
     tasks = searchFilter(tasks, state.search.string);
-
   }
   return {
     recentTasks: urgency(tasks, 'recent'),

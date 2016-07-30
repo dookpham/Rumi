@@ -24,7 +24,6 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { getAllCompleted } from './actions/completedActions';
 import { getAllTasks } from './actions/taskActions';
-import { searchClose } from './actions/searchActions';
 import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import appReducer from './reducers/index';
@@ -60,16 +59,6 @@ var App = (props) => (
     </div>
   </MuiThemeProvider>
 );
-
-// const mapStateToProps = function(state) {
-//   return {
-//     search: state.search
-//   };
-// };
-
-// App = connect(
-//   mapStateToProps
-// )(App);
 
 store.dispatch(getAllCompleted());
 store.dispatch(getAllTasks());
